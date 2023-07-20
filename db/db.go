@@ -1,6 +1,8 @@
 package db
 
 import (
+	users "leleshop/entity/user"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -13,9 +15,15 @@ var (
 func StartDB() {
 	connStr := "postgres://lelshop_user:FnDmS31yQOKUu11tBvnrEQUVTGSnjUBS@dpg-cisam618g3n42om0l36g-a.singapore-postgres.render.com/lelshop"
 	db, err = gorm.Open(postgres.Open(connStr), &gorm.Config{})
+
 	if err != nil {
 		panic(err)
 	}
+
+	//	Connection success at this stage
+	db.Debug().AutoMigrate(
+		users.UserEntity{},
+	)
 }
 
 func GetDB() *gorm.DB {

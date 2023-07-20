@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"leleshop/db"
+	"leleshop/router"
+)
 
 func main() {
-	fmt.Println("Hello GO")
+	db.StartDB()
+	router.StartServer()
 }

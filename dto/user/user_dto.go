@@ -1,7 +1,7 @@
 package user
 
 type UserDto struct {
-	Id             string `json:"id" form:"id"`
+	Id             uint   `json:"id" form:"id"`
 	UserName       string `json:"user_name" form:"user_name"`
 	FullName       string `json:"full_name" form:"full_name"`
 	Email          string `json:"email" form:"email"`
@@ -13,6 +13,6 @@ type UserDto struct {
 }
 
 type UserNameLoginDto struct {
-	UserName string `json:"user_name" form:"user_name" valid:"required~Email cannot be empty,email~Please provide a valid email"`
+	UserName string `json:"user_name" form:"user_name" valid:"required~Username cannot be empty, minstringlength(5)~Username cannot be less than 5 characters"`
 	Password string `json:"password" form:"password" valid:"required~Password cannot be empty, minstringlength(8)~Password cannot be less than 8 characters"`
 }
