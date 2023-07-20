@@ -18,3 +18,17 @@ func ToUserEntity(dto dto.UserDto) entity.UserEntity {
 		IsAdmin:        dto.IsAdmin,
 	}
 }
+
+func ToUserDto(entity entity.UserEntity) dto.UserDto {
+	return dto.UserDto{
+		Id:             entity.Id,
+		UserName:       entity.UserName,
+		FullName:       entity.FullName,
+		PhoneNumber:    entity.PhoneNumber,
+		ProfilePicture: entity.ProfilePicture,
+		Email:          entity.Email,
+		Password:       entity.Password,
+		IsSeller:       entity.IsSeller,
+		IsAdmin:        entity.IsAdmin,
+	}
+}

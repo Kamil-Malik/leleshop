@@ -56,7 +56,7 @@ func Register(ctx *gin.Context) {
 		response.Response{
 			Status:  true,
 			Message: "Ok",
-			Data:    "Account created",
+			Data:    "Account Created",
 		},
 	)
 }

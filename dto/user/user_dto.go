@@ -16,3 +16,8 @@ type UserNameLoginDto struct {
 	UserName string `json:"user_name" form:"user_name" valid:"required~Username cannot be empty, minstringlength(5)~Username cannot be less than 5 characters"`
 	Password string `json:"password" form:"password" valid:"required~Password cannot be empty, minstringlength(8)~Password cannot be less than 8 characters"`
 }
+
+type EmailLoginDto struct {
+	Email    string `json:"email" form:"email" valid:"required~Email cannot be empty, email~Please provide a valid email"`
+	Password string `json:"password" form:"password" valid:"required~Password cannot be empty, minstringlength(8)~Password cannot be less than 8 characters"`
+}
