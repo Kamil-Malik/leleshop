@@ -6,6 +6,7 @@ type UserEntity struct {
 	Id             uint      `gorm:"primaryKey, column:id"`
 	UserName       string    `gorm:"index, column:user_name"`
 	FullName       string    `gorm:"column:full_name"`
+	FcmToken       string    `gorm:"column:fcm_token"`
 	Email          string    `gorm:"column:email"`
 	Password       string    `gorm:"column:password"`
 	PhoneNumber    string    `gorm:"column:phone_number"`

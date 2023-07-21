@@ -102,12 +102,35 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
+	user, err := service.GetUserByUsername(userNameLoginDto.UserName)
+	if err != nil {
+		ctx.AbortWithStatusJSON(
+			http.StatusNotFound,
+			response.ErrorResponse{
+				Status:  false,
+				Message: "Username not found",
+			},
+		)
+		return
+	}
+
+	if err := util.ComparePassword(userNameLoginDto.Password, user.Password); err != nil {
+		ctx.AbortWithStatusJSON(
+			http.StatusForbidden,
+			response.ErrorResponse{
+				Status:  false,
+				Message: "Invalid username / password",
+			},
+		)
+		return
+	}
+
 	ctx.JSON(
 		http.StatusOK,
 		response.Response{
 			Status:  true,
 			Message: "Ok",
-			Data:    "This is your token",
+			Data:    util.GenerateToken(user.Id, user.UserName),
 		},
 	)
 }

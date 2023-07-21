@@ -4,6 +4,7 @@ type UserDto struct {
 	Id             uint   `json:"id" form:"id"`
 	UserName       string `json:"user_name" form:"user_name"`
 	FullName       string `json:"full_name" form:"full_name"`
+	FcmToken       string `json:"fcm_token" form:"fcm_token"`
 	Email          string `json:"email" form:"email"`
 	Password       string `json:"password" form:"password"`
 	PhoneNumber    string `json:"phone_number" form:"phone_number"`
