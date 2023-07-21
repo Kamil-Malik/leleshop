@@ -4,10 +4,8 @@ import (
 	"fmt"
 	dto "leleshop/dto/product"
 	entity "leleshop/entity/product"
-	"log"
 	"time"
 
-	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -100,50 +98,4 @@ func GetAllProductsForUser(db *gorm.DB, userID uint) ([]dto.ProductDto, error) {
 	// Retrieve product images here for each product if needed
 
 	return productDtos, nil
-}
-
-// Example usage:
-func main() {
-	dsn := "host=localhost user=your_user password=your_password dbname=your_database port=5432 sslmode=disable TimeZone=Asia/Shanghai"
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	if err != nil {
-		log.Fatal("failed to connect database: ", err)
-	}
-
-	// Run migrations (if needed)
-	db.AutoMigrate(&entity.ProductEntity{}, &entity.ProductEntity{})
-
-	// Example: Add a product
-	productDto := &dto.ProductDto{
-		SellerID:    1,
-		Name:        "Sample Product",
-		Description: "This is a sample product",
-		Price:       19.99,
-		Quantity:    100,
-		CategoryID:  1,
-		IsSold:      false,
-	}
-	err = AddProduct(db, productDto)
-	if err != nil {
-		log.Fatal("failed to add product: ", err)
-	}
-
-	// Example: Get a product by ID
-	productID := uint(1)
-	product, err := GetProductByID(db, productID)
-	if err != nil {
-		log.Fatal("failed to get product: ", err)
-	}
-	fmt.Println("Product:", product)
-
-	// Example: Get all products for a specific user ID
-	userID := uint(1)
-	products, err := GetAllProductsForUser(db, userID)
-	if err != nil {
-		log.Fatal("failed to get products for user: ", err)
-	}
-	fmt.Println("Products for User ID:", userID)
-	for _, p := range products {
-		fmt.Println(p)
-	}
 }
