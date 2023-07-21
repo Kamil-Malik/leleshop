@@ -13,6 +13,18 @@ type UserDto struct {
 	IsAdmin        bool   `json:"is_admin" form:"is_admin"`
 }
 
+type UserResponseDto struct {
+	Id             uint   `json:"id" form:"id"`
+	UserName       string `json:"user_name" form:"user_name"`
+	FullName       string `json:"full_name" form:"full_name"`
+	FcmToken       string `json:"fcm_token" form:"fcm_token"`
+	Email          string `json:"email" form:"email"`
+	PhoneNumber    string `json:"phone_number" form:"phone_number"`
+	ProfilePicture string `json:"profile_picture" form:"profile_picture"`
+	IsSeller       bool   `json:"is_seller" form:"is_seller"`
+	IsAdmin        bool   `json:"is_admin" form:"is_admin"`
+}
+
 type UserNameLoginDto struct {
 	UserName string `json:"user_name" form:"user_name" valid:"required~Username cannot be empty, minstringlength(5)~Username cannot be less than 5 characters"`
 	Password string `json:"password" form:"password" valid:"required~Password cannot be empty, minstringlength(8)~Password cannot be less than 8 characters"`

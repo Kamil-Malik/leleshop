@@ -134,3 +134,27 @@ func Login(ctx *gin.Context) {
 		},
 	)
 }
+
+func GetUserProfile(ctx *gin.Context) {
+	userName := ctx.Param("user_name")
+	user, err := service.GetUserByUsername(userName)
+	if err != nil {
+		ctx.AbortWithStatusJSON(
+			http.StatusNotFound,
+			response.ErrorResponse{
+				Status:  false,
+				Message: "Username not found",
+			},
+		)
+		return
+	}
+
+	ctx.JSON(
+		http.StatusOK,
+		response.Response{
+			Status:  true,
+			Message: "Ok",
+			Data:    mapper.ToUserResponseDto(user),
+		},
+	)
+}

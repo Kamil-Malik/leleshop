@@ -34,3 +34,17 @@ func ToUserDto(entity entity.UserEntity) dto.UserDto {
 		IsAdmin:        entity.IsAdmin,
 	}
 }
+
+func ToUserResponseDto(user dto.UserDto) dto.UserResponseDto {
+	return dto.UserResponseDto{
+		Id:             user.Id,
+		UserName:       user.UserName,
+		FullName:       user.FullName,
+		FcmToken:       user.FcmToken,
+		Email:          user.Email,
+		PhoneNumber:    user.PhoneNumber,
+		ProfilePicture: user.ProfilePicture,
+		IsSeller:       user.IsSeller,
+		IsAdmin:        user.IsAdmin,
+	}
+}
