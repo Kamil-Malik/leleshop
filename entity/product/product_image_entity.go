@@ -1,6 +1,8 @@
 package product
 
-import "time"
+import (
+	"time"
+)
 
 type ProductImageEntity struct {
 	ID        uint      `gorm:"primaryKey;column:id"`
