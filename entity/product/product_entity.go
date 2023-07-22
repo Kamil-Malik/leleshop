@@ -13,5 +13,5 @@ type ProductEntity struct {
 	IsSold      bool                 `gorm:"column:is_sold"`
 	CreatedAt   time.Time            `gorm:"column:created_at"`
 	UpdatedAt   time.Time            `gorm:"column:updated_at"`
-	Images      []ProductImageEntity `gorm:"foreignKey:ProductID"`
+	Images      []ProductImageEntity `gorm:"foreignKey:product_id"`
 }

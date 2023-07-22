@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"fmt"
+	"leleshop/db"
 	dto "leleshop/dto/product"
 	"leleshop/dto/response"
 	entity "leleshop/entity/product"
@@ -15,7 +16,9 @@ import (
 // ProductDto and ProductImageDto structs (as shown earlier)
 
 // AddProduct adds a new product to the database
-func AddProduct(db *gorm.DB, productDto *dto.ProductDto) error {
+func AddProduct(productDto *dto.ProductDto) error {
+
+	db := db.GetDB()
 
 	// Return error if the product image is empty
 	if len(productDto.Images) == 0 {
@@ -113,20 +116,23 @@ func GetAllProductsForUser(db *gorm.DB, userID uint) ([]dto.ProductDto, error) {
 }
 
 // GetProductsPagination retrieves products along with their associated images in a pagination form
-func GetProductsPagination(db *gorm.DB, page, pageSize int) (products []dto.ProductDto, paginationResponse response.PaginationItemResponse, err error) {
+func GetProductsPagination(page, pageSize int) (products []dto.ProductDto, paginationResponse response.PaginationItemResponse, err error) {
+
+	db := db.GetDB()
 
 	// Calculate the offset for pagination
 	offset := (page - 1) * pageSize
 
+	var productEntity []entity.ProductEntity
+
 	// Query products along with their associated images using Preload
-	result := db.Preload("Images").Limit(pageSize).Offset(offset).Find(&products)
+	result := db.Preload("Images").Limit(pageSize).Offset(offset).Find(&productEntity)
 	if result.Error != nil {
 		return nil, response.PaginationItemResponse{}, result.Error
 	}
 
 	// Convert ProductEntity slice to ProductDto slice (you can also create a function to do this conversion)
-	var productDtos []dto.ProductDto
-	for _, productEntity := range products {
+	for _, productEntity := range productEntity {
 		productDto := dto.ProductDto{
 			ID:          productEntity.ID,
 			SellerID:    productEntity.SellerID,
@@ -147,7 +153,7 @@ func GetProductsPagination(db *gorm.DB, page, pageSize int) (products []dto.Prod
 			})
 		}
 
-		productDtos = append(productDtos, productDto)
+		products = append(products, productDto)
 	}
 
 	// Calculate pagination metadata
@@ -163,5 +169,5 @@ func GetProductsPagination(db *gorm.DB, page, pageSize int) (products []dto.Prod
 		CurrentPage: page,
 	}
 
-	return productDtos, paginationResponse, nil
+	return products, paginationResponse, nil
 }

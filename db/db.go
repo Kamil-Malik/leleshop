@@ -1,6 +1,7 @@
 package db
 
 import (
+	"leleshop/entity/product"
 	users "leleshop/entity/user"
 
 	"gorm.io/driver/postgres"
@@ -23,6 +24,8 @@ func StartDB() {
 	//	Connection success at this stage
 	db.Debug().AutoMigrate(
 		users.UserEntity{},
+		product.ProductEntity{},
+		product.ProductImageEntity{},
 	)
 }
 
