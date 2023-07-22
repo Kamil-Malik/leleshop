@@ -2,13 +2,13 @@ package user
 
 type UserDto struct {
 	Id             uint   `json:"id" form:"id"`
-	UserName       string `json:"user_name" form:"user_name"`
-	FullName       string `json:"full_name" form:"full_name"`
+	UserName       string `json:"user_name" form:"user_name" valid:"required~Username cannot be empty"`
+	FullName       string `json:"full_name" form:"full_name" valid:"required~Fullname cannot be empty"`
 	FcmToken       string `json:"fcm_token" form:"fcm_token"`
-	Email          string `json:"email" form:"email"`
-	Password       string `json:"password" form:"password"`
-	PhoneNumber    string `json:"phone_number" form:"phone_number"`
-	ProfilePicture string `json:"profile_picture" form:"profile_picture"`
+	Email          string `json:"email" form:"email" valid:"required~Email cannot be empty, email~Invalid email format"`
+	Password       string `json:"password" form:"password" valid:"required~Password cannot be empty, min=8~Password must be at least 8 characters, contains=1~Password must contain at least one number"`
+	PhoneNumber    string `json:"phone_number" form:"phone_number" valid:"required~Phone number cannot be empty"`
+	ProfilePicture string `json:"profile_picture" form:"profile_picture" valid:"required~Profile picture cannot be empty"`
 	IsSeller       bool   `json:"is_seller" form:"is_seller"`
 	IsAdmin        bool   `json:"is_admin" form:"is_admin"`
 }
