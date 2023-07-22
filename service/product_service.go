@@ -33,16 +33,6 @@ func AddProduct(productDto *dto.ProductDto) error {
 		return err
 	}
 
-	// You can also add the product images here if needed
-	for _, img := range productDto.Images {
-		productImageEntity := mapper.ToProductImageEntity(img)
-		productImageEntity.ProductID = productEntity.ID // Set the foreign key (ProductID) to link the product image to the product
-		if err := db.Create(&productImageEntity).Error; err != nil {
-			// If there's an error, you may choose to handle it or return it
-			return err
-		}
-	}
-
 	return nil
 }
 
